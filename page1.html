@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Model with Rotating Sun and Circular Motion</title>
+    <style>
+        body { margin: 0; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+  <h1> earth Lol</h1>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+
+    <script>
+        // Initialize the scene, camera, and renderer
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Add lighting
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight.position.set(1, 1, 1).normalize();
+        scene.add(directionalLight);
+
+        // Add a point light to simulate sun's light at the center
+        const pointLight = new THREE.PointLight(0xffff00, 1, 100);
+        pointLight.position.set(0, 0, 0);  // Light at the center (where the sun will be)
+        scene.add(pointLight);
+
+        // Variables for circular motion
+        let angle = 0;
+        const radius = 5;  // Radius of the circular path
+        let revolvingModel;  // Variable to store the revolving GLTF model
+        let sunModel;        // Variable to store the static GLTF sun model
+
+        // Load the GLTF sun model and position it at the center (0, 0, 0)
+        const loader = new THREE.GLTFLoader();
+        loader.load('sun_and_solar_flares/scene.gltf', function (gltf) {
+            sunModel = gltf.scene;
+            sunModel.position.set(0, 0, 0);  // Center of the scene
+            scene.add(sunModel);
+        }, undefined, function (error) {
+            console.error(error);
+        });
+
+        // Load the GLTF revolving model
+        loader.load('earth/self made Earth.gltf', function (gltf) {
+            revolvingModel = gltf.scene;
+            scene.add(revolvingModel);
+            animate();  // Start the animation after the model is loaded
+        }, undefined, function (error) {
+            console.error(error);
+        });
+
+        // Set camera position
+        camera.position.z = 10;
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Rotate the sun on its own axis
+            if (sunModel) {
+                sunModel.rotation.y += 0.01;  // Adjust this value to change the rotation speed of the sun
+            }
+
+            // Move the revolving model in a circular motion around the sun
+            if (revolvingModel) {
+                angle += 0.01;  // Speed of the circular motion
+                revolvingModel.position.x = radius * Math.cos(angle);
+                revolvingModel.position.z = radius * Math.sin(angle);
+
+                // Optionally, rotate the revolving model itself
+                revolvingModel.rotation.y += 0.01;  // Rotate the model around its Y axis
+            }
+
+            renderer.render(scene, camera);
+        }
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+</html>
