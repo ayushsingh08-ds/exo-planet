@@ -18,24 +18,24 @@
     <script>
         // Initialize the scene, camera, and renderer
         const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const camera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer();
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
 
         // Add lighting
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 20);
-        directionalLight.position.set(1, 1, 1).normalize();
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 10);
+        directionalLight.position.set(0, 0, 2).normalize();
         scene.add(directionalLight);
 
         // Add a point light to simulate sun's light at the center
-        const pointLight = new THREE.PointLight(0xffff00, 1, 40);
+        const pointLight = new THREE.PointLight(0xffff00, 1, 90);
         pointLight.position.set(0, 0, 0);  // Light at the center (where the sun will be)
         scene.add(pointLight);
 
         // Variables for circular motion
         let angle = 0;
-        const radius = 5;  // Radius of the circular path
+        const radius = 8;  // Radius of the circular path
         let revolvingModel;  // Variable to store the revolving GLTF model
         let sunModel;        // Variable to store the static GLTF sun model
 
