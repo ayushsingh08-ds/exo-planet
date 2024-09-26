@@ -11,6 +11,7 @@
 </head>
 <body>
   <h1> earth Lol</h1>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
 
@@ -23,12 +24,12 @@
         document.body.appendChild(renderer.domElement);
 
         // Add lighting
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 20);
         directionalLight.position.set(1, 1, 1).normalize();
         scene.add(directionalLight);
 
         // Add a point light to simulate sun's light at the center
-        const pointLight = new THREE.PointLight(0xffff00, 1, 100);
+        const pointLight = new THREE.PointLight(0xffff00, 1, 40);
         pointLight.position.set(0, 0, 0);  // Light at the center (where the sun will be)
         scene.add(pointLight);
 
