@@ -43,7 +43,8 @@ nav {
 }
 
 nav img {
-  width: 100px;
+  width: 500px;
+  height: 200px;
   cursor: pointer;
 }
 
