@@ -67,10 +67,7 @@ nav .navigation ul {
   justify-content: flex-end;
   align-items: center;
 }
-#profile-btn{
-  scale: 1;
-  border-radius: 20px;
-}
+
 nav .navigation ul li {
   list-style: none;
   margin-left: 30px;
