@@ -10,7 +10,10 @@
     </style>
 </head>
 <body>
+    
     <div id="info">Hover over a planet for details.</div>
+    
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
     <script>
@@ -28,13 +31,13 @@
         const stars = new THREE.Mesh(starsGeometry, starsMaterial);
         scene.add(stars);
 
-        // Exoplanet data with positions and colors
+        // Exoplanet data with positions and planet-like colors
         const exoplanets = [
-            { name: 'Kepler-22b', position: [10, 0, 0], color: 0xff0000 },  // Red
-            { name: 'Proxima Centauri b', position: [-15, 5, 0], color: 0x00ff00 },  // Green
-            { name: 'HD 209458 b', position: [5, -10, 0], color: 0x0000ff },  // Blue
-            { name: 'TRAPPIST-1e', position: [20, 10, -5], color: 0xffff00 },  // Yellow
-            { name: 'LHS 1140 b', position: [-10, -5, 15], color: 0xff00ff }   // Magenta
+            { name: 'Kepler-22b', position: [10, 0, 0], color: 0x006b3f },  // Dark Green
+            { name: 'Proxima Centauri b', position: [-15, 5, 0], color: 0x8b4513 },  // Saddle Brown
+            { name: 'HD 209458 b', position: [5, -10, 0], color: 0x4682b4 },  // Steel Blue
+            { name: 'TRAPPIST-1e', position: [20, 10, -5], color: 0xffa500 },  // Orange
+            { name: 'LHS 1140 b', position: [-10, -5, 15], color: 0x800080 }   // Purple
         ];
 
         const planetSpheres = []; // Store planet spheres for rotation
@@ -69,7 +72,7 @@
         
         loader.load('rocket/rkt.gltf', function(gltf) {
             spacecraft = gltf.scene;
-            spacecraft.scale.set(0.5, 0.5, 0.5); // Scale the model if needed
+            spacecraft.scale.set(0.3, 0.3, 0.3); // Scale the model to be smaller
             spacecraft.position.set(0, 0, 0); // Start at the origin
             scene.add(spacecraft);
             animate(); // Start the animation loop once the model is loaded
@@ -99,6 +102,10 @@
                 const direction = targetPlanetPosition.clone().sub(spacecraft.position).normalize();
                 spacecraft.position.add(direction.multiplyScalar(0.05)); // Move towards the target
 
+                // Adjust the spacecraft rotation to face the target position
+                const angle = Math.atan2(direction.y, direction.x); // Calculate angle in the XZ plane
+                spacecraft.rotation.y = angle; // Set spacecraft rotation
+
                 // Check if spacecraft reached the target position
                 if (spacecraft.position.distanceTo(targetPlanetPosition) < 0.2) {
                     targetPlanetPosition = null; // Stop moving once we reach the target
@@ -119,7 +126,7 @@
                 const planet = intersects[0].object.userData.name;
                 const position = intersects[0].object.position.clone(); // Get the position as a Vector3
                 const distance = calculateDistance(position.toArray());
-                document.getElementById('info').textContent = `Planet: ${planet}, Distance: ${distance} units`;
+                document.getElementById('info').textContent = `Planet: ${planet}, Distance: ${distance} light-years`;
 
                 // Set target position for spacecraft to move to
                 targetPlanetPosition = position;
@@ -133,7 +140,12 @@
         function calculateDistance(position) {
             const origin = new THREE.Vector3(0, 0, 0); // Origin point
             const planetPosition = new THREE.Vector3(...position); // Convert position array to Vector3
-            return origin.distanceTo(planetPosition).toFixed(2); // Calculate distance and return fixed to 2 decimal places
+            const distanceInUnits = origin.distanceTo(planetPosition); // Calculate distance in units
+
+            // Convert the distance to real-life measurement (e.g., 1 unit = 4.24 light-years)
+            const lightYearScaleFactor = 4.24; // Adjust this scale factor as needed
+            const distanceInLightYears = distanceInUnits * lightYearScaleFactor; // Convert to light-years
+            return distanceInLightYears.toFixed(2); // Return fixed to 2 decimal places
         }
 
         // Resize handler
