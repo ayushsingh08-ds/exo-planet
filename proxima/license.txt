@@ -1,0 +1,8 @@
+Model Information:
+* title:	Pixel Planet Proxima Centauri b
+* source:	https://sketchfab.com/3d-models/pixel-planet-proxima-centauri-b-03a16b71b8be4cdaa78ec79d5ca63f72
+* author:	AstroJar (https://sketchfab.com/AstroJar)
+
+Model License:
+* license type:	SKETCHFAB Standard (https://sketchfab.com/licenses)
+* requirements:	Under basic restrictions, use worldwide, on all types of media, commercially or not, and in all types of derivative works
