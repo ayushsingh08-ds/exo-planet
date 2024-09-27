@@ -5,31 +5,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interactive Exoplanet Space Map</title>
     <style>
-        body { margin: 0; overflow: hidden; }
-        #info { position: absolute; top: 20px; left: 20px; color: white; }
+        body {
+            margin: 0; 
+            overflow: hidden; 
+        }
+        #info {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%); /* Center the text */
+            color: white;
+            font-size: 20px;
+            z-index: 100;
+        }
+        .planet-label {
+            color: white;
+            font-size: 14px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
     
     <div id="info">Hover over a planet for details.</div>
     
-    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/renderers/CSS2DRenderer.js"></script>
     <script>
         // Scene setup
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ antialias: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setClearColor(0x000000); // Set background color to black
         document.body.appendChild(renderer.domElement);
 
-        // Create starry background
-        const starsGeometry = new THREE.SphereGeometry(100, 100, 100);
-        const starsMaterial = new THREE.MeshBasicMaterial({ color: 0xaaaaaa, side: THREE.BackSide });
-        const stars = new THREE.Mesh(starsGeometry, starsMaterial);
-        scene.add(stars);
+        // Load background texture
+        const textureLoader = new THREE.TextureLoader();
+        textureLoader.load('background092.jpg', function(texture) {
+            scene.background = texture; // Set the loaded texture as the scene background
+        });
+
+        // Create blinking stars effect
+        const starCount = 500;
+        const stars = new THREE.BufferGeometry();
+        const starPositions = new Float32Array(starCount * 3);
+        const starMaterials = []; // Array to hold individual star materials
+
+        for (let i = 0; i < starCount; i++) {
+            starPositions[i * 3] = (Math.random() - 0.5) * 200; // x
+            starPositions[i * 3 + 1] = (Math.random() - 0.5) * 200; // y
+            starPositions[i * 3 + 2] = (Math.random() - 0.5) * 200; // z
+
+            // Create a unique material for each star with random blinking frequency
+            const starMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 0.5 });
+            starMaterials.push({ material: starMaterial, frequency: Math.random() * 0.5 + 0.2 }); // Frequency between 0.2 and 0.7 seconds
+        }
+        stars.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
+
+        const starField = new THREE.Points(stars, starMaterials[0].material);
+        scene.add(starField);
 
         // Exoplanet data with positions and planet-like colors
         const exoplanets = [
@@ -41,28 +76,45 @@
         ];
 
         const planetSpheres = []; // Store planet spheres for rotation
-        const modelPositions = exoplanets.map(planet => planet.position); // Store planet positions for the model path
+        const labels = []; // Store labels for planets
 
         // Create planets as spheres and add to scene
         exoplanets.forEach(planet => {
-            const geometry = new THREE.SphereGeometry(1, 32, 32); // Create a sphere geometry
+            const geometry = new THREE.SphereGeometry(1.2, 32, 32); // Make the planets a bit larger
             const material = new THREE.MeshPhongMaterial({ 
                 color: planet.color,
                 shininess: 100, // Adjust shininess for a bolder look
                 specular: 0x555555 // Specular highlight color
-            }); // Create a material with specified color
-            const sphere = new THREE.Mesh(geometry, material); // Create a mesh with geometry and material
-            sphere.position.set(...planet.position); // Set position
-            sphere.userData = { name: planet.name }; // Store planet name in userData
-            scene.add(sphere); // Add the sphere to the scene
-            planetSpheres.push(sphere); // Store the sphere for rotation
+            });
+            const sphere = new THREE.Mesh(geometry, material);
+            sphere.position.set(...planet.position);
+            sphere.userData = { name: planet.name };
+            scene.add(sphere);
+            planetSpheres.push(sphere);
+
+            // Create a label for each planet
+            const labelDiv = document.createElement('div');
+            labelDiv.className = 'planet-label';
+            labelDiv.textContent = planet.name;
+            labelDiv.style.marginTop = '-1em'; // Adjust margin for positioning
+            const label = new THREE.CSS2DObject(labelDiv);
+            label.position.set(0, 1.5, 0); // Position above the planet
+            sphere.add(label);
+            labels.push(label);
         });
 
+        // CSS2D Renderer for displaying labels
+        const labelRenderer = new THREE.CSS2DRenderer();
+        labelRenderer.setSize(window.innerWidth, window.innerHeight);
+        labelRenderer.domElement.style.position = 'absolute';
+        labelRenderer.domElement.style.top = '0px';
+        document.body.appendChild(labelRenderer.domElement);
+
         // Add a light to illuminate the planets
-        const ambientLight = new THREE.AmbientLight(0x404040); // Soft white light
+        const ambientLight = new THREE.AmbientLight(0x404040);
         scene.add(ambientLight);
         
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 1); // White directional light
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
         directionalLight.position.set(5, 5, 5).normalize();
         scene.add(directionalLight);
 
@@ -97,6 +149,13 @@
                 sphere.rotation.y += 0.01; // Rotate the sphere around its Y-axis
             });
 
+            // Blink stars with different rates
+            starMaterials.forEach((star, index) => {
+                const frequency = star.frequency; // Get frequency for each star
+                star.material.opacity = 0.5 + 0.5 * Math.sin(Date.now() * frequency * 2 * Math.PI / 1000); // Vary opacity over time
+                star.material.transparent = true;
+            });
+
             // Move the spacecraft towards the target planet
             if (spacecraft && targetPlanetPosition) {
                 const direction = targetPlanetPosition.clone().sub(spacecraft.position).normalize();
@@ -113,6 +172,7 @@
             }
 
             renderer.render(scene, camera);
+            labelRenderer.render(scene, camera); // Render the labels
         }
 
         // Mouse movement event
@@ -142,19 +202,17 @@
             const planetPosition = new THREE.Vector3(...position); // Convert position array to Vector3
             const distanceInUnits = origin.distanceTo(planetPosition); // Calculate distance in units
 
-            // Convert the distance to real-life measurement (e.g., 1 unit = 4.24 light-years)
-            const lightYearScaleFactor = 4.24; // Adjust this scale factor as needed
-            const distanceInLightYears = distanceInUnits * lightYearScaleFactor; // Convert to light-years
-            return distanceInLightYears.toFixed(2); // Return fixed to 2 decimal places
+            // Convert the distance to real-life measurement (e.g., 1 unit = 4.24 light years)
+            return (distanceInUnits * 4.24).toFixed(2); // Light years
         }
 
-        // Resize handler
+        // Handle window resize
         window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
+            labelRenderer.setSize(window.innerWidth, window.innerHeight);
         });
-
     </script>
 </body>
 </html>

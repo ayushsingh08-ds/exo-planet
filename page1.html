@@ -9,8 +9,9 @@
         canvas { display: block; }
         #distance {
             position: absolute;
-            top: 20px;
-            left: 20px;
+            top: 20px; /* Distance from the top */
+            left: 50%; /* Center horizontally */
+            transform: translateX(-50%); /* Adjust to truly center */
             color: white;
             font-size: 20px;
             z-index: 100;
@@ -21,6 +22,7 @@
 
   <!-- Distance display -->
   <div id="distance">Distance: Calculating...</div>
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
@@ -47,10 +49,9 @@
         let angle = 0;
         const a = 10; // Semi-major axis (scaled distance for aphelion)
         const b = 9.7; // Semi-minor axis (scaled distance for perihelion)
-        const orbitalSpeed = 0.01; // Speed multiplier for Earth's revolution
+        const orbitalSpeed = 0.005; // Slower speed multiplier for Earth's revolution
         let revolvingModel;  // Variable to store the revolving GLTF model
         let sunModel;        // Variable to store the static GLTF sun model
-        let line;            // Variable to store the line connecting Sun and Earth
 
         // Load the GLTF sun model and position it at the center (0, 0, 0)
         const loader = new THREE.GLTFLoader();
@@ -66,16 +67,6 @@
         loader.load('earth/self made Earth.gltf', function (gltf) {
             revolvingModel = gltf.scene;
             scene.add(revolvingModel);
-
-            // Create a line connecting the Sun and the Earth
-            const material = new THREE.LineBasicMaterial({ color: 0xffffff });
-            const geometry = new THREE.BufferGeometry().setFromPoints([
-                new THREE.Vector3(0, 0, 0), // Start point (Sun)
-                new THREE.Vector3(a, 0, 0) // End point (initial Earth position at aphelion)
-            ]);
-            line = new THREE.Line(geometry, material);
-            scene.add(line);
-
             animate();  // Start the animation after the model is loaded
         }, undefined, function (error) {
             console.error(error);
@@ -84,15 +75,9 @@
         // Set camera position
         camera.position.z = 20;
 
-        // Update the line and distance display
-        function updateLineAndDistance() {
-            if (revolvingModel && line) {
-                // Update the line's geometry to connect the Sun and Earth
-                const positions = line.geometry.attributes.position.array;
-                positions[3] = revolvingModel.position.x; // Update Earth's x position
-                positions[5] = revolvingModel.position.z; // Update Earth's z position
-                line.geometry.attributes.position.needsUpdate = true;
-
+        // Update the distance display
+        function updateDistance() {
+            if (revolvingModel) {
                 // Calculate the distance between Earth and Sun
                 const distance = Math.sqrt(revolvingModel.position.x ** 2 + revolvingModel.position.z ** 2);
                 document.getElementById('distance').innerHTML = `Distance: ${(distance * 15).toFixed(2)} million km`;
@@ -117,8 +102,8 @@
                 // Optionally, rotate the revolving model itself
                 revolvingModel.rotation.y += 0.01;  // Rotate the model around its Y axis
 
-                // Update the line and display the distance
-                updateLineAndDistance();
+                // Update the distance display
+                updateDistance();
             }
 
             renderer.render(scene, camera);
