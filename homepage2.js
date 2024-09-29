@@ -29,3 +29,10 @@ document.querySelectorAll('.planet-link').forEach(function(link) {
         }, 800); // Delay to allow slide-out effect
     });
 });
+document.querySelector('.show-more').addEventListener('click', function() {
+    // Unmute the audio and play
+    const audio = document.getElementById('background-audio');
+    audio.muted = false;
+    audio.play();
+});
+
