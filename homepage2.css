@@ -1,0 +1,159 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #1c0037;
+    color: white;
+}
+
+/* Header Styles */
+header {
+    padding: 10px 20px;
+    background-color: #1a0030;
+    text-align: right;
+}
+
+nav ul {
+    list-style-type: none;
+}
+
+nav ul li {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+nav ul li a {
+    color: #fff; /* Link color set to white */
+    text-decoration: none; /* Remove the underline */
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    color: #ff4081; /* Change color on hover */
+}
+
+/* Generic link styling for the entire page */
+a {
+    color: inherit; /* Inherit color from the parent element */
+    text-decoration: none; /* Remove default underline from links */
+}
+
+/* Planet hover effect */
+a:hover {
+    color: #f73dc7; /* Change color on hover */
+}
+
+/* Page and Section Styles */
+.page {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.5s ease; /* Add transition for smooth sliding */
+}
+
+.page.active {
+    display: flex;
+    animation: fadeIn 1s ease forwards; /* Keep your existing fadeIn animation */
+    transform: translateX(0); /* Ensure active page is in position */
+}
+
+#landing-page {
+    background-image: url("images/space.gif");
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    padding: 100px 20px;
+}
+
+#planet-page {
+    background-color: #101018;
+    text-align: center;
+}
+
+.planet-section {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+    transition: transform 0.8s ease;
+}
+
+/* Mars Section */
+.mars {
+    background-image: url("images/exo1.gif"); /* Replace with Mars background */
+}
+
+/* Jupiter Section */
+.jupiter {
+    background-image: url("images/e2.gif"); /* Replace with Jupiter background */
+}
+
+/* Saturn Section */
+.saturn {
+    background-image: url("images/rocket.gif") /* Replace with Saturn background */
+}
+
+/* Hover effect to indicate clickable link */
+.planet-link:hover .planet-section {
+    transform: scale(1.05);
+}
+
+h1 {
+    font-size: 3em;
+    color: #f73dc7;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 1.2em;
+    color: #fff;
+    max-width: 600px;
+    margin: 0 auto 20px;
+}
+
+.show-more {
+    background-color: #ff4081;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.show-more:hover {
+    background-color: #f73dc7;
+}
+
+/* Animation for page transition */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.landing::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("images/space.gif");
+    opacity: 0.6;
+    z-index: -1;
+}

@@ -37,11 +37,17 @@ nav {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 1vw 6vw;
+  padding: 1vw 10vw;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0);
   z-index: 999;
 }
 
+#logo2{
+  width: 100px;
+  height: 10vh;
+  top: 10px;       
+  left: 10px;  
+}
 
 nav .navigation {
   display: flex;
@@ -70,12 +76,13 @@ nav .navigation ul li {
 }
 
 nav .navigation ul li a {
+  
   text-decoration: none;
   color: #000000;
-  font-size: 1rem;
+  font-size: 3rem;
   font-weight: 500;
   transition: 0.3s ease;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
 }
 
 nav .navigation ul li a:hover {
