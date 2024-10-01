@@ -364,6 +364,7 @@
         font-family: Poppins;
         font-weight: bold;
         letter-spacing: 3px;
+        
         background-color: transparent;
         padding: 10px;
         /* opacity: 0; */
@@ -398,50 +399,129 @@
         transform: translate(-100%, -50%) rotate(90deg);
         filter: blur(130px);
     }
-    @media screen and (max-width: 991px){
-        /* ipad, tablets */
-        .carousel .list .item{
-            width: 90%;
-        }
-        .carousel.showDetail .list .item:nth-child(2) .detail .specifications{
-            overflow: auto;
-        }
-        .carousel.showDetail .list .item:nth-child(2) .detail .title{
-            font-size: 2em;
-        }
+  /* Tablets and iPads */
+@media screen and (max-width: 991px) {
+    .carousel {
+        height: 100vh; /* Use viewport height for dynamic scaling */
     }
-    @media screen and (max-width: 767px){
-        /* mobile */
-        .carousel{
-            height: 600px;
-        }
-        .carousel .list .item{
-            width: 100%;
-            font-size: 10px;
-        }
-        
-        .carousel .list{
-            height: 100%;
-        }
-        .carousel .list .item:nth-child(2) .introduce{
-            width: 50%;
-        }
-        
-        .carousel .list .item img{
-            width: 40%;
-        }
-        .carousel.showDetail .list .item:nth-child(2) .detail{
-            backdrop-filter: blur(10px);
-            font-size: small;
-        }
-        .carousel .list .item:nth-child(2) .introduce .des,
-        .carousel.showDetail .list .item:nth-child(2) .detail .des{
-            height: 100px;
-            overflow: auto;
-        }
-        .carousel.showDetail .list .item:nth-child(2) .detail .checkout{
-            display: flex;
-            width: max-content;
-            float: right;
-        }
+    .carousel .list .item {
+        width: 100%;
+        font-size: 12px; /* Make sure the font size isn't too small */
     }
+    .carousel .list {
+        height: 100%; /* Set height to 100% for proper scaling */
+    }
+    .carousel .list .item:nth-child(2) .introduce {
+        width: 80%; /* Increase to 80% for better readability */
+    }
+    .carousel .list .item img {
+        width: 50%; /* Make image width more flexible */
+    }
+    .carousel.showDetail .list .item:nth-child(2) .detail {
+        backdrop-filter: blur(10px);
+        font-size: small;
+        padding: 20px; /* Add padding for better readability */
+    }
+    .carousel .list .item:nth-child(2) .introduce .des,
+    .carousel.showDetail .list .item:nth-child(2) .detail .des {
+        height: 150px; /* Ensure the description box has enough height */
+        overflow: auto;
+    }
+    .carousel.showDetail .list .item:nth-child(2) .detail .checkout {
+        display: flex;
+        width: max-content;
+        margin: 20px auto; /* Ensure the checkout button is well-aligned */
+    }
+
+    .carousel .list .item #back { /* Assuming 'see-all' is the class for the See All button */
+        display: block; /* Ensure it's a block element */
+        width: 100%; /* Full width for better accessibility */
+        text-align: center; /* Center-align text */
+        margin-top: 20px; /* Add some space above */
+    }
+    }
+
+
+/* Mobile Devices */
+@media screen and (max-width: 767px) {
+    .carousel {
+        height: 100vh; /* Use viewport height for dynamic scaling */
+    }
+    .carousel .list .item {
+        width: 100%;
+        font-size: 12px; /* Make sure the font size isn't too small */
+    }
+    .carousel .list {
+        height: 100%; /* Set height to 100% for proper scaling */
+    }
+    .carousel .list .item:nth-child(2) .introduce {
+        width: 80%; /* Increase to 80% for better readability */
+    }
+    .carousel .list .item img {
+        width: 50%; /* Make image width more flexible */
+    }
+    .carousel.showDetail .list .item:nth-child(2) .detail {
+        backdrop-filter: blur(10px);
+        font-size: small;
+        padding: 20px; /* Add padding for better readability */
+    }
+    .carousel .list .item:nth-child(2) .introduce .des,
+    .carousel.showDetail .list .item:nth-child(2) .detail .des {
+        height: 150px; /* Ensure the description box has enough height */
+        overflow: auto;
+    }
+    .carousel.showDetail .list .item:nth-child(2) .detail .checkout {
+        display: flex;
+        width: max-content;
+        margin: 20px auto; /* Ensure the checkout button is well-aligned */
+    }
+
+    .carousel .list .item #back { /* Assuming 'see-all' is the class for the See All button */
+        display: block; /* Ensure it's a block element */
+        width: 100%; /* Full width for better accessibility */
+        text-align: center; /* Center-align text */
+        margin-top: 20px; /* Add some space above */
+    }
+}
+
+/* Small Mobile Devices */
+@media screen and (max-width: 575px) {
+    .carousel {
+        height: 100vh; /* Use viewport height for dynamic scaling */
+    }
+    .carousel .list .item {
+        width: 100%;
+        font-size: 12px; /* Make sure the font size isn't too small */
+    }
+    .carousel .list {
+        height: 100%; /* Set height to 100% for proper scaling */
+    }
+    .carousel .list .item:nth-child(2) .introduce {
+        width: 80%; /* Increase to 80% for better readability */
+    }
+    .carousel .list .item img {
+        width: 50%; /* Make image width more flexible */
+    }
+    .carousel.showDetail .list .item:nth-child(2) .detail {
+        backdrop-filter: blur(10px);
+        font-size: small;
+        padding: 20px; /* Add padding for better readability */
+    }
+    .carousel .list .item:nth-child(2) .introduce .des,
+    .carousel.showDetail .list .item:nth-child(2) .detail .des {
+        height: 150px; /* Ensure the description box has enough height */
+        overflow: auto;
+    }
+    .carousel.showDetail .list .item:nth-child(2) .detail .checkout {
+        display: flex;
+        width: max-content;
+        margin: 20px auto; /* Ensure the checkout button is well-aligned */
+    }
+
+    .carousel .list .item #back { /* Assuming 'see-all' is the class for the See All button */
+        display: block; /* Ensure it's a block element */
+        width: 100%; /* Full width for better accessibility */
+        text-align: center; /* Center-align text */
+        margin-top: 20px; /* Add some space above */
+    }
+}
