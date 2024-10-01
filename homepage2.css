@@ -5,6 +5,11 @@
     box-sizing: border-box;
 }
 
+html, body {
+    height: 100%; /* Ensure the html and body take full height */
+    overflow: hidden; /* Prevent scrolling */
+}
+
 body {
     font-family: 'Arial', sans-serif;
     background-color: #1c0037;
@@ -76,17 +81,25 @@ a:hover {
 #planet-page {
     background-color: #101018;
     text-align: center;
+    height: calc(100vh - 60px); /* Adjust height to fit within viewport */
 }
 
+/* Planet Section Styles */
 .planet-section {
-    height: 100vh;
+    height: calc(100vh - 60px); /* Adjust for header height */
     display: flex;
     justify-content: center;
     align-items: center;
     background-size: cover;
     background-position: center;
     cursor: pointer;
-    transition: transform 0.8s ease;
+    transition: transform 0.3s ease; /* Smooth transition effect */
+    padding-top: 60px; /* Add padding to avoid covering the header */
+}
+
+/* Hover effect to indicate clickable link */
+.planet-section:hover {
+    transform: scale(1.03); /* Scale slightly for a smoother effect */
 }
 
 /* Mars Section */
@@ -101,12 +114,7 @@ a:hover {
 
 /* Saturn Section */
 .saturn {
-    background-image: url("images/rocket.gif") /* Replace with Saturn background */
-}
-
-/* Hover effect to indicate clickable link */
-.planet-link:hover .planet-section {
-    transform: scale(1.05);
+    background-image: url("images/rocket.gif"); /* Replace with Saturn background */
 }
 
 h1 {
