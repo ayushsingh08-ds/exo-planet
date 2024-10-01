@@ -125,7 +125,7 @@
         background-color: transparent;
         font-weight: bold;
         letter-spacing: 3px;
-        transition: background 0.5s;
+        transition: background 0.1s;
     }
     .carousel .list .item .introduce .seeMore:hover{
         background: #eee;
@@ -159,7 +159,7 @@
     .carousel .list .item:nth-child(2) .introduce .des,
     .carousel .list .item:nth-child(2) .introduce .seeMore{
         opacity: 0;
-        animation: showContent 0.5s 1s ease-in-out 1 forwards;
+        animation: showContent 0.5s 0.5s ease-in-out 1 forwards;
     }
     @keyframes showContent{
         from{
@@ -172,13 +172,13 @@
         }
     }
     .carousel .list .item:nth-child(2) .introduce .topic{
-        animation-delay: 1.2s;
+        animation-delay: 0.5s;
     }
     .carousel .list .item:nth-child(2) .introduce .des{
-        animation-delay: 1.4s;
+        animation-delay: 1s;
     }
     .carousel .list .item:nth-child(2) .introduce .seeMore{
-        animation-delay: 1.6s;
+        animation-delay: 1.2s;
     }
     /* next click */
     .carousel.next .item:nth-child(1){
