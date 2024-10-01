@@ -328,6 +328,48 @@
     .carousel.showDetail .list .item:nth-child(2) .detail .checkout{
         animation-delay: 1.3s;
     }
+
+/* Define floating keyframes */
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* Apply the floating animation to all planets (carousel items) */
+.carousel .list .item img {
+    width: 50%;
+    position: absolute;
+    right: 0;
+    top: 40%;
+    transform: translateY(-50%);
+    transition: right 1s;
+    animation: float 5s ease-in-out infinite; /* Add floating animation */
+}
+
+/* For different planets, adjust animation duration for variety */
+.carousel .list .item:nth-child(1) img {
+    animation-duration: 6s; /* Slow float for planet 1 */
+}
+.carousel .list .item:nth-child(2) img {
+    animation-duration: 5s; /* Moderate float for planet 2 */
+}
+.carousel .list .item:nth-child(3) img {
+    animation-duration: 4s; /* Faster float for planet 3 */
+}
+.carousel .list .item:nth-child(4) img {
+    animation-duration: 7s; /* Slow float for planet 4 */
+}
+.carousel .list .item:nth-child(5) img {
+    animation-duration: 6.5s; /* Slightly slower float for planet 5 */
+}
+
     .arrows{
         position: absolute;
         bottom: 10px;
