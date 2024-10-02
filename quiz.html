@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background: url('https://i.imgur.com/Z9s58N5.gif') no-repeat center center fixed;
+            background: url("images/bgquiz.avif") no-repeat center center fixed;
             background-size: cover;
             color: #ffffff;
             text-align: center;
@@ -15,6 +15,39 @@
             margin: 0;
             overflow: hidden;
         }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background-color: rgba(0, 0, 0, 0.7);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 2;
+        }
+
+        header h2 {
+            color: #ffffff;
+            font-size: 24px;
+        }
+
+        .home-link {
+    font-size: 18px;
+    color: #ffffff;
+    text-decoration: none;
+    background-color: #7e068ec7;
+    padding: 10px 20px;
+    border-radius: 10px;
+    margin-right: 50px; /* Negative margin to move it left */
+    transition: background-color 0.3s ease;
+}
+
+.home-link:hover {
+    background-color: #fefefe25;
+}
 
         .stars {
             position: absolute;
@@ -31,10 +64,11 @@
         }
 
         h1 {
-            color: #00ff99;
+            color: #ffffff;
             margin-bottom: 20px;
             font-size: 36px;
             animation: glow 1.5s infinite alternate;
+            margin-top: 70px; /* Adjusted to make space for the header */
         }
 
         @keyframes glow {
@@ -46,11 +80,12 @@
             max-width: 700px;
             margin: auto;
             padding: 30px;
-            background-color: rgba(0, 0, 102, 0.8);
+            background-color: rgba(68, 1, 107, 0.8);
             border-radius: 15px;
             box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
             position: relative;
             z-index: 1;
+            top: 70px;
         }
 
         .question {
@@ -63,7 +98,7 @@
             display: block;
             margin: 15px 0;
             padding: 15px;
-            background-color: #202060;
+            background-color: #572060;
             border-radius: 50px;
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.2s ease;
@@ -78,7 +113,7 @@
         }
 
         .option:hover {
-            background-color: #4040ff;
+            background-color: #6e0b81;
             transform: scale(1.05);
         }
 
@@ -114,16 +149,17 @@
 
         #final-result {
             padding: 40px;
-            background-color: rgba(0, 0, 102, 0.9);
+            background-color: rgba(74, 4, 100, 0.9);
             border-radius: 15px;
             box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.7);
             transition: transform 0.5s ease, opacity 0.5s ease;
+            top: 70px;
         }
 
         #final-result h2 {
             font-size: 28px;
             margin-bottom: 20px;
-            color: #00ff99;
+            color: #dde3e0;
             animation: bounce 1s infinite alternate;
         }
 
@@ -158,6 +194,11 @@
     </style>
 </head>
 <body>
+    <header>
+        <h2>Exoplanet Quiz</h2>
+        <a href="index.html" class="home-link">Home</a>
+    </header>
+    
     <div class="stars"></div>
     <h1>Space Exoplanet Quiz</h1>
     <div class="quiz-container">
@@ -260,8 +301,7 @@
             const questionData = questions[currentQuestionIndex];
             questionElement.innerHTML = `
                 <div class="question">${questionData.question}</div>
-                ${questionData.options.map(option => `<div class="option" onclick="selectOption(this, ${option.correct})">${option.text}</div>`).join('')}
-            `;
+                ${questionData.options.map(option => `<div class="option" onclick="selectOption(this, ${option.correct})">${option.text}</div>`).join('')}`;
             document.getElementById('next-btn').classList.add('hidden');
             document.getElementById('question-number').innerText = `Question ${currentQuestionIndex + 1} / ${questions.length}`;
         }
@@ -305,3 +345,4 @@
     </script>
 </body>
 </html>
+    

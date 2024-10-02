@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Interactive Blog</title>
+    <link rel="stylesheet" href="test.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome to My Blog</h1>
+    </header>
+    <main>
+        <section id="search">
+            <h2>Search the Web</h2>
+            <form action="https://www.google.com/search" method="get" target="_blank">
+                <input type="search" id="search-input" name="q" placeholder="Search Google..." list="suggestions">
+                <datalist id="suggestions"></datalist>
+                <button type="submit">Search</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>© 2024 My Interactive Blog</p>
+    </footer>
+    <script src="test.js"></script>
+</body>
+</html>
