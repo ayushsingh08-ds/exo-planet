@@ -30,25 +30,7 @@
         --item5-zIndex: 7;
         --item5-opacity: 0;
     }
-    header{
-        width: 1140px;
-        max-width: 90%;
-        display: flex;
-        justify-content: space-between;
-        margin: auto;
-        height: 50px;
-        align-items: center;
-    }
-    header .logo{
-        font-weight: bold;
-        color: white;
-    }
-    header nav a{
-        margin-left: 30px;
-        text-decoration: none;
-        color: #ffffff;
-        font-weight: 500;
-    }
+  
    
 
     /* carousel */
