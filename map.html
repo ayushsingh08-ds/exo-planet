@@ -8,6 +8,7 @@
         body {
             margin: 0; 
             overflow: hidden; 
+            background-color: black;
         }
         #info {
             position: absolute;
@@ -15,20 +16,41 @@
             left: 50%;
             transform: translateX(-50%); /* Center the text */
             color: white;
-            font-size: 20px;
+            font-size: 2vw; /* Responsive font size */
             z-index: 100;
         }
         .planet-label {
             color: white;
-            font-size: 14px;
+            font-size: 1.5vw; /* Responsive font size */
             text-align: center;
+        }
+        #mini-map {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            z-index: 100;
+            font-size: 1.5vw; /* Responsive font size */
+        }
+
+        @media (max-width: 600px) {
+            #info, #mini-map {
+                font-size: 4vw; /* Larger font size on smaller screens */
+            }
+            .planet-label {
+                font-size: 3vw; /* Larger label size on smaller screens */
+            }
         }
     </style>
 </head>
 <body>
     
     <div id="info">Hover over a planet for details.</div>
-    
+    <div id="mini-map">Mini Map: Use this to navigate.</div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/renderers/CSS2DRenderer.js"></script>
@@ -121,7 +143,7 @@
         // Load the spacecraft model
         const loader = new THREE.GLTFLoader();
         let spacecraft;
-        
+
         loader.load('rocket/rkt.gltf', function(gltf) {
             spacecraft = gltf.scene;
             spacecraft.scale.set(0.3, 0.3, 0.3); // Scale the model to be smaller
@@ -140,6 +162,10 @@
         const mouse = new THREE.Vector2();
 
         let targetPlanetPosition = null; // Store the target planet position
+
+        // Touch variables
+        let isDragging = false; // Flag to track drag state
+        let previousTouch = new THREE.Vector2(); // Store the previous touch position
 
         function animate() {
             requestAnimationFrame(animate);
@@ -175,44 +201,79 @@
             labelRenderer.render(scene, camera); // Render the labels
         }
 
-        // Mouse movement event
-        window.addEventListener('mousemove', (event) => {
+        // Mouse and touch event for hover effect
+        function onPointerMove(event) {
+            const clientX = event.clientX || (event.touches[0] && event.touches[0].clientX);
+            const clientY = event.clientY || (event.touches[0] && event.touches[0].clientY);
+            mouse.x = (clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(clientY / window.innerHeight) * 2 + 1;
+
+            raycaster.setFromCamera(mouse, camera);
+            const intersects = raycaster.intersectObjects(scene.children);
+            if (intersects.length > 0 && intersects[0].object.userData.name) {
+                document.getElementById('info').textContent = `Hovering over: ${intersects[0].object.userData.name}`;
+            } else {
+                document.getElementById('info').textContent = 'Hover over a planet for details.';
+            }
+        }
+
+        // Click or touch event to move spacecraft to the selected planet
+        function onPointerDown(event) {
             mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
             mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
             raycaster.setFromCamera(mouse, camera);
-            const intersects = raycaster.intersectObjects(scene.children);
+            const intersects = raycaster.intersectObjects(planetSpheres);
+
             if (intersects.length > 0) {
-                const planet = intersects[0].object.userData.name;
-                const position = intersects[0].object.position.clone(); // Get the position as a Vector3
-                const distance = calculateDistance(position.toArray());
-                document.getElementById('info').textContent = `Planet: ${planet}, Distance: ${distance} light-years`;
-
-                // Set target position for spacecraft to move to
-                targetPlanetPosition = position;
-            } else {
-                // Reset info if not hovering over any planet
-                document.getElementById('info').textContent = 'Hover over a planet for details.';
-                targetPlanetPosition = null; // Stop moving if not hovering over a planet
+                const targetPlanet = intersects[0].object.position; // Get target planet position
+                targetPlanetPosition = targetPlanet.clone(); // Store target position
             }
-        });
-
-        function calculateDistance(position) {
-            const origin = new THREE.Vector3(0, 0, 0); // Origin point
-            const planetPosition = new THREE.Vector3(...position); // Convert position array to Vector3
-            const distanceInUnits = origin.distanceTo(planetPosition); // Calculate distance in units
-
-            // Convert the distance to real-life measurement (e.g., 1 unit = 4.24 light years)
-            return (distanceInUnits * 4.24).toFixed(2); // Light years
         }
 
-        // Handle window resize
+        // Touch event for dragging the camera view
+        function onTouchStart(event) {
+            if (event.touches.length === 1) { // Only allow dragging with one finger
+                isDragging = true;
+                previousTouch.set(event.touches[0].clientX, event.touches[0].clientY); // Record starting touch position
+            }
+        }
+
+        function onTouchMove(event) {
+            if (isDragging && event.touches.length === 1) {
+                const currentTouch = new THREE.Vector2(event.touches[0].clientX, event.touches[0].clientY);
+                const deltaX = currentTouch.x - previousTouch.x; // Calculate change in X
+                const deltaY = currentTouch.y - previousTouch.y; // Calculate change in Y
+
+                // Update camera position based on touch movement
+                camera.position.x -= deltaX * 0.01; // Adjust camera X position
+                camera.position.y += deltaY * 0.01; // Adjust camera Y position
+
+                previousTouch.copy(currentTouch); // Update previous touch position
+            }
+        }
+
+        function onTouchEnd(event) {
+            isDragging = false; // Stop dragging when touch ends
+        }
+
+        // Event listeners for mouse and touch
+        window.addEventListener('mousemove', onPointerMove);
+        window.addEventListener('mousedown', onPointerDown);
+        window.addEventListener('touchmove', onPointerMove);
+        window.addEventListener('touchstart', onTouchStart);
+        window.addEventListener('touchmove', onTouchMove);
+        window.addEventListener('touchend', onTouchEnd);
+        window.addEventListener('mousedown', onPointerDown);
+
+        // Adjust camera and renderer on window resize
         window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
             labelRenderer.setSize(window.innerWidth, window.innerHeight);
         });
+
     </script>
 </body>
 </html>
