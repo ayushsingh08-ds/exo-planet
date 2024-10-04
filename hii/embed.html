@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn more about the fascinating exoplanets Proxima b and TRAPPIST-1e">
+    <title>Exoplanets - Proxima b & TRAPPIST-1e</title>
+    <link rel="stylesheet" href="embed.css">
+    <style>
+        body {
+            margin: 0; /* Remove default margin */
+            font-family: Arial, sans-serif; /* Set a default font */
+            background-color: #0b0c12; /* Dark background color */
+            color: white; /* Default text color */
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: #1e1f26; /* Header background color */
+        }
+
+        nav {
+            text-align: center; /* Center align navigation */
+            background-color: #2c2d34; /* Navigation background color */
+            padding: 10px;
+        }
+
+        nav ul {
+            list-style: none; /* Remove list bullets */
+            padding: 0; /* Remove default padding */
+        }
+
+        nav a {
+            color: #f0f0f0; /* Link color */
+            text-decoration: none; /* Remove underline */
+            margin: 0 15px; /* Add margin between links */
+        }
+
+        nav a:hover {
+            text-decoration: underline; /* Underline on hover */
+        }
+
+        /* New TRAPPIST-1e Section */
+        .mars-style-section {
+            display: flex;
+            align-items: center; /* Center items vertically */
+            justify-content: space-around; /* Space between items */
+            background-color: #1e1f26; /* Background color */
+            padding: 20px; /* Padding inside section */
+            margin: 20px; /* Margin around section */
+            border-radius: 8px; /* Rounded corners */
+        }
+
+        .mars-style-section img {
+            width: 300px; /* Adjust image size */
+            height: auto; /* Maintain aspect ratio */
+        }
+
+        .mars-style-info {
+            max-width: 500px; /* Limit width of text */
+            text-align: left; /* Align text to the left */
+        }
+
+        section {
+            padding: 50px;
+            background: #292b2f; /* Section background color */
+            color: #f0f0f0; /* Text color */
+            margin: 20px; /* Margin around sections */
+            border-radius: 8px; /* Rounded corners */
+        }
+
+        section h2 {
+            color: #ffcc00; /* Section heading color */
+        }
+
+        .planet-card {
+            display: flex;
+            justify-content: space-around; /* Space between cards */
+            margin-top: 20px; /* Space above cards */
+        }
+
+        .card {
+            background: #444; /* Card background color */
+            padding: 20px; /* Padding inside cards */
+            border-radius: 8px; /* Rounded corners */
+            text-align: center; /* Center align text */
+            flex: 1; /* Allow cards to grow equally */
+            margin: 0 10px; /* Space between cards */
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #1e1f26; /* Footer background color */
+            color: white; /* Footer text color */
+        }
+
+        /* Additional styles can go here */
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to the Exoplanet Website</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#trappist-1e">TRAPPIST-1e</a></li>
+            <li><a href="#iframe-section">Explore on NASA</a></li>
+        </ul>
+    </nav>
+
+    <!-- Mars-style Section for TRAPPIST-1e -->
+    <section class="mars-style-section">
+        <img src="images/TRAPPIST-1e.webp" alt="TRAPPIST-1e Image"> <!-- TRAPPIST-1e Image -->
+        <div class="mars-style-info">
+            <h2>TRAPPIST-1e</h2>
+            <p>Distance: 39 light-years</p>
+            <p>TRAPPIST-1e is one of the seven known planets orbiting the ultracool dwarf star TRAPPIST-1, and is considered one of the most Earth-like exoplanets discovered to date.</p>
+            <a href="#trappist-1e">Get Started</a> <!-- Link to overview -->
+        </div>
+    </section>
+
+    <!-- TRAPPIST-1e Overview Section -->
+    <section id="trappist-1e">
+        <h2>Overview of TRAPPIST-1e</h2>
+        <p>TRAPPIST-1e is one of the seven known planets orbiting the ultracool dwarf star TRAPPIST-1, located about 39 light-years away in the constellation Aquarius. It is considered one of the most Earth-like exoplanets discovered to date.</p>
+
+        
+    </section>
+
+    <!-- Discovery Section -->
+    <section id="discovery">
+        <h2>Discovery</h2>
+        <p>TRAPPIST-1e was discovered in 2017 by a team of astronomers using the Spitzer Space Telescope. The discovery was significant due to its potential for life, as the planet lies in the habitable zone of its star.</p>
+    </section>
+
+    <!-- Characteristics Section -->
+    <section id="characteristics">
+        <h2>Characteristics of TRAPPIST-1e</h2>
+        <ul>
+            <li>Mass: ~0.77 Earth masses</li>
+            <li>Radius: ~0.91 Earth radii</li>
+            <li>Orbital period: 6.1 days</li>
+            <li>Distance from its star: 0.029 AU</li>
+            <li>Surface temperature: ~251 K (-22°C)</li>
+        </ul>
+    </section>
+
+    <!-- Habitability Section -->
+    <section id="habitability">
+        <h2>Habitability Potential</h2>
+        <p>TRAPPIST-1e is within the habitable zone of its star, meaning it has the potential to support liquid water on its surface. However, much is still unknown about its atmosphere and surface conditions, which are critical in determining its habitability.</p>
+    </section>
+
+    <!-- New TRAPPIST-1e Guided Tour Section -->
+    <section id="trappist-tour" class="iframe-section">
+        <h2>TRAPPIST-1e Guided Tour</h2>
+        <div class="nasa-embed">
+            <iframe src="https://exoplanets.nasa.gov/alien-worlds/exoplanet-travel-bureau/trappist-1e-guided-tour/?intent=021" width="100%" height="600px" frameborder="0" style="border:none; overflow:hidden;"></iframe>
+        </div>
+    </section>
+
+    <!-- Embedded NASA Page using iframe -->
+    <section id="iframe-section" class="iframe-section">
+        <h2>Explore Proxima b on NASA</h2>
+        <div class="nasa-embed">
+            <iframe src="https://science.nasa.gov/exoplanet-catalog/trappist-1-e/" width="100%" height="600px" frameborder="0" style="border:none; overflow:hidden;"></iframe>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Exoplanet Research Center. All rights reserved.</p>
+    </footer>
+</body>
+</html>

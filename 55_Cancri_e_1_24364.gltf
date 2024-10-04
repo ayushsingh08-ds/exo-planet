@@ -1,0 +1,198 @@
+{
+    "asset": {
+        "version": "2.0",
+        "generator": "Open Asset Import Library (assimp v5.4.0)"
+    },
+    "extensionsUsed": [
+        "KHR_materials_volume",
+        "FB_ngon_encoding"
+    ],
+    "accessors": [
+        {
+            "bufferView": 0,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 1670,
+            "type": "VEC3",
+            "max": [
+                500.0000305175781,
+                499.9999694824219,
+                500.0000305175781
+            ],
+            "min": [
+                -500.0000305175781,
+                -499.9999694824219,
+                -500.0000305175781
+            ]
+        },
+        {
+            "bufferView": 1,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 1670,
+            "type": "VEC3",
+            "max": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "min": [
+                -1.0,
+                -1.0,
+                -1.0
+            ]
+        },
+        {
+            "bufferView": 2,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 1670,
+            "type": "VEC2",
+            "max": [
+                1.0,
+                0.999085009098053
+            ],
+            "min": [
+                0.00017100000695791095,
+                0.002392888069152832
+            ]
+        },
+        {
+            "bufferView": 3,
+            "byteOffset": 0,
+            "componentType": 5125,
+            "count": 9216,
+            "type": "SCALAR",
+            "max": [
+                1669
+            ],
+            "min": [
+                0
+            ]
+        }
+    ],
+    "buffers": [
+        {
+            "byteLength": 90304,
+            "uri": "55_Cancri_e_1_24364_0.bin"
+        }
+    ],
+    "bufferViews": [
+        {
+            "buffer": 0,
+            "byteOffset": 0,
+            "byteLength": 20040,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteOffset": 20040,
+            "byteLength": 20040,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteOffset": 40080,
+            "byteLength": 13360,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteOffset": 53440,
+            "byteLength": 36864,
+            "target": 34963
+        }
+    ],
+    "images": [
+        {
+            "uri": "textures/image_0.png"
+        },
+        {
+            "uri": "textures/image_1.png"
+        }
+    ],
+    "materials": [
+        {
+            "name": "Default OBJ.005",
+            "pbrMetallicRoughness": {
+                "baseColorTexture": {
+                    "index": 0
+                },
+                "metallicFactor": 0.25,
+                "roughnessFactor": 0.949999988079071
+            },
+            "emissiveTexture": {
+                "index": 1
+            },
+            "emissiveFactor": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        }
+    ],
+    "meshes": [
+        {
+            "name": "meshes[0]",
+            "primitives": [
+                {
+                    "mode": 4,
+                    "material": 0,
+                    "indices": 3,
+                    "attributes": {
+                        "POSITION": 0,
+                        "NORMAL": 1,
+                        "TEXCOORD_0": 2
+                    }
+                }
+            ]
+        }
+    ],
+    "nodes": [
+        {
+            "name": "55_Cancri_e_1_24364",
+            "children": [
+                1
+            ]
+        },
+        {
+            "name": "Cube008",
+            "mesh": 0,
+            "extras": {
+                "name": "Cube.008"
+            }
+        }
+    ],
+    "samplers": [
+        {
+            "wrapS": 33071,
+            "wrapT": 33071,
+            "magFilter": 9729,
+            "minFilter": 9986
+        },
+        {
+            "wrapS": 33071,
+            "wrapT": 33071,
+            "magFilter": 9729,
+            "minFilter": 9986
+        }
+    ],
+    "scenes": [
+        {
+            "nodes": [
+                0
+            ]
+        }
+    ],
+    "textures": [
+        {
+            "source": 0,
+            "sampler": 0
+        },
+        {
+            "source": 1,
+            "sampler": 1
+        }
+    ],
+    "scene": 0
+}

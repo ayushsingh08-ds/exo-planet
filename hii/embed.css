@@ -1,0 +1,163 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #0b0c12;
+    color: white;
+}
+
+header {
+    text-align: center;
+    padding: 20px;
+    background-color: #1e1f26;
+    color: #ffffff; /* Ensure text is readable against the background */
+}
+
+nav {
+    text-align: center;
+    background-color: #2c2d34;
+    padding: 10px;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center; /* Align nav items horizontally */
+}
+
+nav li {
+    margin: 0 15px; /* Space between nav items */
+}
+
+nav a {
+    color: #f0f0f0;
+    text-decoration: none;
+    font-weight: bold; /* Make links stand out */
+    padding: 8px 16px; /* Add padding for better touch interaction */
+    transition: color 0.3s; /* Smooth transition effect */
+}
+
+nav a:hover {
+    color: #ffcc00; /* Change color on hover for better visibility */
+    text-decoration: underline;
+}
+
+.hero {
+    position: relative;
+    height: 400px;
+    overflow: hidden;
+    background-image: url('images/'); /* Background image URL placeholder */
+    background-size: cover;
+    background-position: center;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 3rem; /* Large, bold text */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Shadow for better readability on bright backgrounds */
+}
+
+section {
+    padding: 50px;
+    background: #292b2f;
+    color: #f0f0f0;
+    margin: 20px auto;
+    border-radius: 8px;
+    max-width: 1200px; /* Limit the section width for better readability */
+}
+
+section h2 {
+    color: #ffcc00;
+    font-size: 2rem; /* Larger headings */
+    margin-bottom: 20px;
+}
+
+.planet-card {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+    gap: 20px; /* Add spacing between cards */
+    flex-wrap: wrap; /* Ensure cards wrap on smaller screens */
+}
+
+.card {
+    background: #444;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    flex: 1;
+    margin: 0 10px;
+    transition: transform 0.3s ease-in-out; /* Smooth hover effect */
+    min-width: 250px; /* Set a minimum width for cards */
+    max-width: 300px; /* Prevent cards from getting too wide */
+}
+
+.card:hover {
+    transform: translateY(-10px); /* Lift the card slightly on hover */
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #1e1f26;
+    color: white;
+    font-size: 0.9rem;
+}
+
+/* Mobile responsive design */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+    }
+
+    nav li {
+        margin-bottom: 10px;
+    }
+
+    .hero {
+        height: 300px; /* Reduce height on mobile */
+    }
+
+    .hero h1 {
+        font-size: 2rem; /* Adjust text size for smaller screens */
+    }
+
+    section {
+        padding: 20px;
+    }
+
+    .planet-card {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card {
+        margin: 20px 0; /* Space between stacked cards */
+        width: 100%; /* Make cards full-width on small screens */
+        max-width: none; /* Allow cards to fill the available space */
+    }
+
+    section h2 {
+        font-size: 1.5rem; /* Adjust heading size for mobile */
+    }
+}
+
+/* Additional responsive design for tablets */
+@media (max-width: 1024px) {
+    .hero {
+        height: 350px;
+    }
+
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    section {
+        padding: 40px;
+    }
+}

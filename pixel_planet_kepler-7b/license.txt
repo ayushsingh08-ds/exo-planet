@@ -1,0 +1,8 @@
+Model Information:
+* title:	Pixel Planet Kepler-7b
+* source:	https://sketchfab.com/3d-models/pixel-planet-kepler-7b-c3f70609c3e64ae4b351f6de01a74cd0
+* author:	AstroJar (https://sketchfab.com/AstroJar)
+
+Model License:
+* license type:	SKETCHFAB Standard (https://sketchfab.com/licenses)
+* requirements:	Under basic restrictions, use worldwide, on all types of media, commercially or not, and in all types of derivative works

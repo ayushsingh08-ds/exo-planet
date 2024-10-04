@@ -75,7 +75,7 @@ a:hover {
     background-size: cover;
     background-position: center;
     text-align: center;
-    padding: 100px 20px;
+    padding: 100px 40px;
 }
 
 #planet-page {
@@ -85,38 +85,57 @@ a:hover {
 }
 
 /* Planet Section Styles */
-.planet-section {
-    height: calc(100vh - 60px); /* Adjust for header height */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-size: cover;
-    background-position: center;
-    cursor: pointer;
-    transition: transform 0.3s ease; /* Smooth transition effect */
-    padding-top: 60px; /* Add padding to avoid covering the header */
+.planet-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Flexible grid */
+    gap: 30px; /* Adjust the spacing between items */
+    padding: 20px; /* Add padding around the grid */
+    width: 100%; /* Full width */
+    max-width: 1200px; /* Limit maximum width */
+    margin: 0 auto; /* Center grid */
 }
 
-/* Hover effect to indicate clickable link */
+
+.planet-section {
+    background-color: #f0f0f0; /* Example background color */
+    border-radius: 8px; /* Rounded corners */
+    padding: 20px; /* Increase padding for larger sections */
+    text-align: center; /* Center text inside the sections */
+    transition: transform 0.3s; /* Smooth hover effect */
+    height: 300px; /* Set a fixed height for consistency */
+    background-size: cover; /* Ensure the background covers the section */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+}
+
 .planet-section:hover {
-    transform: scale(1.03); /* Scale slightly for a smoother effect */
+    transform: scale(1.05); /* Scale up on hover */
 }
 
 /* Mars Section */
 .mars {
-    background-image: url("images/exo1.gif"); /* Replace with Mars background */
+    background-image: url("images/hehe.gif"); /* Replace with Mars background */
 }
 
 /* Jupiter Section */
 .jupiter {
-    background-image: url("images/e2.gif"); /* Replace with Jupiter background */
+    background-image: url("images/earth12.gif"); /* Replace with Jupiter background */
 }
 
 /* Saturn Section */
 .saturn {
     background-image: url("images/rocket.gif"); /* Replace with Saturn background */
 }
+.venus{
+    background-image: url("images/giphy.gif");
+}
+.neptune{
+    background-image: url("images/universe.gif");
+}
+.kepler{
+        background-image: url("images/statistic.gif");
 
+}
 h1 {
     font-size: 3em;
     color: #f73dc7;

@@ -110,7 +110,7 @@
         transition: background 0.1s;
     }
     .carousel .list .item .introduce .seeMore:hover{
-        background: #eee;
+        background: #000000;
     }
     .carousel .list .item:nth-child(1){
         transform: var(--item1-transform);
