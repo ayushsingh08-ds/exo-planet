@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background: url("images/bgquiz.avif") no-repeat center center fixed;
+            background: url("images/dol.gif") no-repeat center center fixed;
             background-size: cover;
             color: #ffffff;
             text-align: center;
@@ -16,40 +16,25 @@
             overflow: hidden;
         }
 
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 30px;
-            background-color: rgba(0, 0, 0, 0.7);
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 2;
+        button {
+            margin-top: 20px;
+            padding: 10px 25px;
+            font-size: 18px;
+            background-color: #ca07f0; /* Same color as title */
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            color: black;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
         }
 
-        header h2 {
-            color: #ffffff;
-            font-size: 24px;
+        button:hover {
+            background-color:   #a300cc95; /* Slightly darker version for hover */
+            transform: scale(1.05);
+            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.7);
         }
 
-        .home-link {
-    font-size: 18px;
-    color: #ffffff;
-    text-decoration: none;
-    background-color: #7e068ec7;
-    padding: 10px 20px;
-    border-radius: 10px;
-    margin-right: 50px; /* Negative margin to move it left */
-    transition: background-color 0.3s ease;
-}
-
-.home-link:hover {
-    background-color: #fefefe25;
-}
-
-        
         @keyframes twinkle {
             0% { opacity: 0.5; }
             100% { opacity: 1; }
@@ -60,7 +45,6 @@
             margin-bottom: 20px;
             font-size: 36px;
             animation: glow 1.5s infinite alternate;
-            margin-top: 70px; /* Adjusted to make space for the header */
         }
 
         @keyframes glow {
@@ -72,12 +56,11 @@
             max-width: 700px;
             margin: auto;
             padding: 30px;
-            background-color: rgba(68, 1, 107, 0.8);
+            background-color: rgba(125, 34, 135, 0.426);
             border-radius: 15px;
             box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
             position: relative;
             z-index: 1;
-            top: 70px;
         }
 
         .question {
@@ -90,7 +73,7 @@
             display: block;
             margin: 15px 0;
             padding: 15px;
-            background-color: #572060;
+            background-color: #370051;
             border-radius: 50px;
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.2s ease;
@@ -105,32 +88,12 @@
         }
 
         .option:hover {
-            background-color: #6e0b81;
+            background-color: #9a35b6c7;
             transform: scale(1.05);
         }
 
         .hidden {
             display: none;
-        }
-
-        button {
-            margin-top: 20px;
-            padding: 10px 25px;
-            font-size: 18px;
-            background-color: #00ff99;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            color: black;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
-            background-size: cover;
-        }
-
-        button:hover {
-            background-color: #33ffaa;
-            transform: scale(1.05);
-            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.7);
         }
 
         #result {
@@ -140,17 +103,16 @@
 
         #final-result {
             padding: 40px;
-            background-color: rgba(74, 4, 100, 0.9);
+            background-color: rgba(0, 0, 102, 0.9);
             border-radius: 15px;
             box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.7);
             transition: transform 0.5s ease, opacity 0.5s ease;
-            top: 70px;
         }
 
         #final-result h2 {
             font-size: 28px;
             margin-bottom: 20px;
-            color: #dde3e0;
+            color: #00ff99;
             animation: bounce 1s infinite alternate;
         }
 
@@ -185,11 +147,6 @@
     </style>
 </head>
 <body>
-    <header>
-        <h2>Exoplanet Quiz</h2>
-        <a href="index.html" class="home-link">Home</a>
-    </header>
-    
     <div class="stars"></div>
     <h1>Space Exoplanet Quiz</h1>
     <div class="quiz-container">
@@ -219,6 +176,7 @@
                     { text: "d) Gliese 581g", correct: false }
                 ]
             },
+    
             {
                 question: "2. What is the name of the first exoplanet discovered orbiting a neutron star?",
                 options: [
@@ -237,6 +195,7 @@
                     { text: "d) Spitzer", correct: false }
                 ]
             },
+
             {
                 question: "4. What is the term for exoplanets that orbit multiple stars?",
                 options: [
@@ -246,6 +205,7 @@
                     { text: "d) Eclipsing binaries", correct: false }
                 ]
             },
+
             {
                 question: "5. Which exoplanet has the most Earth-like composition?",
                 options: [
@@ -281,37 +241,127 @@
                     { text: "C) The size of the planet", correct: false },
                     { text: "D) The number of moons it has", correct: false }
                 ]
-            }
+            },
+            {
+        question: "9. What could cause an exoplanet to have extreme seasons like scorching summers and frozen winters?",
+        options: [
+            { text: "a) An eccentric orbit", correct: true },
+            { text: "b) Its proximity to a gas giant", correct: false },
+            { text: "c) A binary star system", correct: false },
+            { text: "d) Its atmosphere being full of greenhouse gases", correct: false }
+        ]
+    },
+    {
+        question: "10. Which of the following would indicate that an exoplanet might have liquid water oceans?",
+        options: [
+            { text: "a) The detection of specific cloud formations in the atmosphere", correct: false },
+            { text: "b) The planet's atmosphere containing water vapor", correct: true },
+            { text: "c) The planet’s rotation axis being tilted similarly to Earth’s", correct: false },
+            { text: "d) The discovery of magnetic poles", correct: false }
+        ]
+    },
+    {
+        question: "11. What type of planet is mostly made of gas and typically very large?",
+        options: [
+            { text: "a) Gas giant", correct: true },
+            { text: "b) Rocky planet", correct: false },
+            { text: "c) Ice giant", correct: false },
+            { text: "d) Dwarf planet", correct: false }
+        ]
+    },
+    {
+        question: "12. What is the 'goldilocks zone'?",
+        options: [
+            { text: "a) The closest orbit to a star", correct: false },
+            { text: "b) The region where conditions are just right for liquid water", correct: true },
+            { text: "c) A region where a star’s light is blocked", correct: false },
+            { text: "d) The coldest part of a star system", correct: false }
+        ]
+    },
+    {
+        question: "13. What is the most common method used to detect exoplanets?",
+        options: [
+            { text: "a) Gravitational lensing", correct: false },
+            { text: "b) Transit method", correct: true },
+            { text: "c) Direct imaging", correct: false },
+            { text: "d) Astrometry", correct: false }
+        ]
+    },
+    {
+        question: "14. How do scientists determine the size of an exoplanet using the transit method?",
+        options: [
+            { text: "a) By measuring the amount of starlight the planet blocks", correct: true },
+            { text: "b) By measuring the star’s temperature", correct: false },
+            { text: "c) By observing the star’s wobble", correct: false },
+            { text: "d) By counting the number of planets in the system", correct: false }
+        ]
+    },
+    {
+        question: "16. Which exoplanet is known for having extremely high wind speeds, with winds blowing faster than the speed of sound?",
+        options: [
+            { text: "a) HD 189733b", correct: true },
+            { text: "b) Proxima Centauri b", correct: false },
+            { text: "c) Kepler-186f", correct: false },
+            { text: "d) Gliese 581d", correct: false }
+        ]
+    },
+            
         ];
 
         let currentQuestionIndex = 0;
         let score = 0;
 
         function loadQuestion() {
-            const questionElement = document.getElementById('question-container');
+            const questionContainer = document.getElementById('question-container');
             const questionData = questions[currentQuestionIndex];
-            questionElement.innerHTML = `
-                <div class="question">${questionData.question}</div>
-                ${questionData.options.map(option => `<div class="option" onclick="selectOption(this, ${option.correct})">${option.text}</div>`).join('')}`;
-            document.getElementById('next-btn').classList.add('hidden');
             document.getElementById('question-number').innerText = `Question ${currentQuestionIndex + 1} / ${questions.length}`;
+            questionContainer.innerHTML = `
+                <div class="question">${questionData.question}</div>
+                ${questionData.options.map((option, index) => `
+                    <div class="option" onclick="selectOption(${index})">${option.text}</div>
+                `).join('')}
+            `;
+            document.getElementById('result').innerText = '';
+            document.getElementById('next-btn').classList.add('hidden');
         }
 
-        function selectOption(selectedOption, isCorrect) {
-            const resultElement = document.getElementById('result');
-            if (isCorrect) {
-                score++;
-                selectedOption.classList.add('correct');
-                resultElement.innerText = 'Correct!';
-            } else {
-                selectedOption.classList.add('incorrect');
-                resultElement.innerText = 'Incorrect!';
-            }
-
+        function selectOption(index) {
+            const questionData = questions[currentQuestionIndex];
+            const selectedOption = questionData.options[index];
             const options = document.querySelectorAll('.option');
-            options.forEach(option => option.onclick = null);
 
-            document.getElementById('next-btn').classList.remove('hidden');
+            // Highlight selected option immediately
+            options.forEach((option, i) => {
+                option.classList.remove('correct', 'incorrect');
+                if (i === index) {
+                    option.classList.add(selectedOption.correct ? 'correct' : 'incorrect'); // Highlight selected answer
+                }
+            });
+
+            // Highlight correct answer after a slight delay
+            setTimeout(() => {
+                options.forEach((option, i) => {
+                    if (questionData.options[i].correct) {
+                        option.classList.add('correct'); // Highlight correct answer
+                    }
+                });
+
+                // Provide feedback
+                if (selectedOption.correct) {
+                    score++;
+                    document.getElementById('result').innerText = 'Yay! You selected the correct option.';
+                } else {
+                    document.getElementById('result').innerText = 'Oops! You selected the wrong answer.';
+                }
+
+                // Disable all options after selection
+                options.forEach(option => {
+                    option.style.pointerEvents = 'none'; // Disable further clicks
+                });
+
+                // Show the next button
+                document.getElementById('next-btn').classList.remove('hidden');
+            }, 300); // Adjust delay time as needed
         }
 
         function loadNextQuestion() {
@@ -321,19 +371,29 @@
             } else {
                 showFinalResult();
             }
-
-            document.getElementById('result').innerText = '';
         }
 
         function showFinalResult() {
+            const finalResult = document.getElementById('final-result');
+            const scoreDisplay = document.getElementById('score');
+            const messageDisplay = document.getElementById('message');
+
+            // Display score and a customized message
+            scoreDisplay.innerText = `You scored ${score} out of ${questions.length}`;
+            if (score === questions.length) {
+                messageDisplay.innerText = 'Perfect score! You really know your exoplanets!';
+            } else if (score > questions.length / 2) {
+                messageDisplay.innerText = 'Great job! You have a solid understanding of exoplanets!';
+            } else {
+                messageDisplay.innerText = 'Good try! Keep learning more about exoplanets!';
+            }
+
+            // Hide the quiz container
             document.querySelector('.quiz-container').classList.add('hidden');
-            document.getElementById('final-result').classList.remove('hidden');
-            document.getElementById('score').innerText = `You scored ${score} out of ${questions.length}.`;
-            document.getElementById('message').innerText = score > (questions.length / 2) ? 'Well done, space traveler!' : 'Keep learning about the universe!';
+            finalResult.classList.remove('hidden');
         }
 
-        window.onload = loadQuestion;
+        loadQuestion(); // Load the first question on page load
     </script>
 </body>
 </html>
-    

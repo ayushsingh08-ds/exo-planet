@@ -3,277 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Exoplanet Space Map</title>
+    <title>3D Space with Wormhole</title>
     <style>
-        body {
-            margin: 0; 
-            overflow: hidden; 
-            background-color: rgb(0, 0, 0);
-        }
-        #info {
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%); /* Center the text */
-            color: white;
-            font-size: 2vw; /* Responsive font size */
-            z-index: 100;
-        }
-        .planet-label {
-            color: white;
-            font-size: 1.5vw; /* Responsive font size */
-            text-align: center;
-        }
-        #mini-map {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.5);
-            color: white;
-            padding: 10px;
-            border-radius: 8px;
-            z-index: 100;
-            font-size: 1.5vw; /* Responsive font size */
-        }
-
-        @media (max-width: 600px) {
-            #info, #mini-map {
-                font-size: 4vw; /* Larger font size on smaller screens */
-            }
-            .planet-label {
-                font-size: 3vw; /* Larger label size on smaller screens */
-            }
-        }
+        body { margin: 0; overflow: hidden; }
+        canvas { display: block; }
     </style>
 </head>
 <body>
-    
-    <div id="info">Hover over a planet for details.</div>
-    <div id="mini-map">Mini Map: Use this to navigate.</div>
+    <div id="wormhole-space"></div>
 
+    <!-- Include Three.js and GLTFLoader -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/renderers/CSS2DRenderer.js"></script>
+
     <script>
         // Scene setup
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        const renderer = new THREE.WebGLRenderer();
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
 
-        // Load background texture
-        const textureLoader = new THREE.TextureLoader();
-        textureLoader.load('background092.jpg', function(texture) {
-            scene.background = texture; // Set the loaded texture as the scene background
-        });
+        // Lighting
+        const light = new THREE.PointLight(0xffffff, 2, 100);
+        light.position.set(10, 10, 10);
+        scene.add(light);
 
-        // Create blinking stars effect
-        const starCount = 500;
-        const stars = new THREE.BufferGeometry();
-        const starPositions = new Float32Array(starCount * 3);
-        const starMaterials = []; // Array to hold individual star materials
-
-        for (let i = 0; i < starCount; i++) {
-            starPositions[i * 3] = (Math.random() - 0.5) * 200; // x
-            starPositions[i * 3 + 1] = (Math.random() - 0.5) * 200; // y
-            starPositions[i * 3 + 2] = (Math.random() - 0.5) * 200; // z
-
-            // Create a unique material for each star with random blinking frequency
-            const starMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 0.5 });
-            starMaterials.push({ material: starMaterial, frequency: Math.random() * 0.5 + 0.2 }); // Frequency between 0.2 and 0.7 seconds
-        }
-        stars.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
-
-        const starField = new THREE.Points(stars, starMaterials[0].material);
-        scene.add(starField);
-
-        // Exoplanet data with positions and planet-like colors
-        const exoplanets = [
-            { name: 'Kepler-22b', position: [10, 0, 0], color: 0x006b3f },  // Dark Green
-            { name: 'Proxima Centauri b', position: [-15, 5, 0], color: 0x8b4513 },  // Saddle Brown
-            { name: 'HD 209458 b', position: [5, -10, 0], color: 0x4682b4 },  // Steel Blue
-            { name: 'TRAPPIST-1e', position: [20, 10, -5], color: 0xffa500 },  // Orange
-            { name: 'LHS 1140 b', position: [-10, -5, 15], color: 0x800080 }   // Purple
-        ];
-
-        const planetSpheres = []; // Store planet spheres for rotation
-        const labels = []; // Store labels for planets
-
-        // Create planets as spheres and add to scene
-        exoplanets.forEach(planet => {
-            const geometry = new THREE.SphereGeometry(1.2, 32, 32); // Make the planets a bit larger
-            const material = new THREE.MeshPhongMaterial({ 
-                color: planet.color,
-                shininess: 100, // Adjust shininess for a bolder look
-                specular: 0x555555 // Specular highlight color
-            });
-            const sphere = new THREE.Mesh(geometry, material);
-            sphere.position.set(...planet.position);
-            sphere.userData = { name: planet.name };
-            scene.add(sphere);
-            planetSpheres.push(sphere);
-
-            // Create a label for each planet
-            const labelDiv = document.createElement('div');
-            labelDiv.className = 'planet-label';
-            labelDiv.textContent = planet.name;
-            labelDiv.style.marginTop = '-1em'; // Adjust margin for positioning
-            const label = new THREE.CSS2DObject(labelDiv);
-            label.position.set(0, 1.5, 0); // Position above the planet
-            sphere.add(label);
-            labels.push(label);
-        });
-
-        // CSS2D Renderer for displaying labels
-        const labelRenderer = new THREE.CSS2DRenderer();
-        labelRenderer.setSize(window.innerWidth, window.innerHeight);
-        labelRenderer.domElement.style.position = 'absolute';
-        labelRenderer.domElement.style.top = '0px';
-        document.body.appendChild(labelRenderer.domElement);
-
-        // Add a light to illuminate the planets
-        const ambientLight = new THREE.AmbientLight(0x404040);
+        const ambientLight = new THREE.AmbientLight(0x404040, 1.5); // Ambient light
         scene.add(ambientLight);
-        
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-        directionalLight.position.set(5, 5, 5).normalize();
-        scene.add(directionalLight);
 
-        // Load the spacecraft model
+        // Load the wormhole glTF model
         const loader = new THREE.GLTFLoader();
-        let spacecraft;
-
-        loader.load('rocket/rkt.gltf', function(gltf) {
-            spacecraft = gltf.scene;
-            spacecraft.scale.set(0.3, 0.3, 0.3); // Scale the model to be smaller
-            spacecraft.position.set(0, 0, 0); // Start at the origin
-            scene.add(spacecraft);
-            animate(); // Start the animation loop once the model is loaded
-        }, undefined, function (error) {
-            console.error(error);
+        let wormhole;
+        loader.load('worm/worm.gltf', function(gltf) {
+            wormhole = gltf.scene;
+            wormhole.scale.set(10, 10, 10); // Adjust size
+            scene.add(wormhole);
         });
 
-        // Camera position
-        camera.position.z = 30;
+        // Add a basic 3D plane to represent space
+        const spaceGeometry = new THREE.PlaneGeometry(1000, 1000);
+        const spaceMaterial = new THREE.MeshBasicMaterial({ color: 0x000000, side: THREE.DoubleSide });
+        const space = new THREE.Mesh(spaceGeometry, spaceMaterial);
+        space.rotation.x = Math.PI / 2; // Make the plane horizontal
+        scene.add(space);
 
-        // Raycaster for hover effect
-        const raycaster = new THREE.Raycaster();
-        const mouse = new THREE.Vector2();
+        // Positioning the camera
+        camera.position.set(0, 50, 100);
 
-        let targetPlanetPosition = null; // Store the target planet position
-
-        // Touch variables
-        let isDragging = false; // Flag to track drag state
-        let previousTouch = new THREE.Vector2(); // Store the previous touch position
-
+        // Animate and render the scene
         function animate() {
             requestAnimationFrame(animate);
 
-            // Rotate each planet on its axis
-            planetSpheres.forEach(sphere => {
-                sphere.rotation.y += 0.01; // Rotate the sphere around its Y-axis
-            });
-
-            // Blink stars with different rates
-            starMaterials.forEach((star, index) => {
-                const frequency = star.frequency; // Get frequency for each star
-                star.material.opacity = 0.5 + 0.5 * Math.sin(Date.now() * frequency * 2 * Math.PI / 1000); // Vary opacity over time
-                star.material.transparent = true;
-            });
-
-            // Move the spacecraft towards the target planet
-            if (spacecraft && targetPlanetPosition) {
-                const direction = targetPlanetPosition.clone().sub(spacecraft.position).normalize();
-                spacecraft.position.add(direction.multiplyScalar(0.05)); // Move towards the target
-
-                // Adjust the spacecraft rotation to face the target position
-                const angle = Math.atan2(direction.y, direction.x); // Calculate angle in the XZ plane
-                spacecraft.rotation.y = angle; // Set spacecraft rotation
-
-                // Check if spacecraft reached the target position
-                if (spacecraft.position.distanceTo(targetPlanetPosition) < 0.2) {
-                    targetPlanetPosition = null; // Stop moving once we reach the target
-                }
+            // Rotate wormhole slightly (if needed, you can comment this out)
+            if (wormhole) {
+                wormhole.rotation.y += 0.01;
             }
 
             renderer.render(scene, camera);
-            labelRenderer.render(scene, camera); // Render the labels
         }
 
-        // Mouse and touch event for hover effect
-        function onPointerMove(event) {
-            const clientX = event.clientX || (event.touches[0] && event.touches[0].clientX);
-            const clientY = event.clientY || (event.touches[0] && event.touches[0].clientY);
-            mouse.x = (clientX / window.innerWidth) * 2 - 1;
-            mouse.y = -(clientY / window.innerHeight) * 2 + 1;
+        animate();
 
-            raycaster.setFromCamera(mouse, camera);
-            const intersects = raycaster.intersectObjects(scene.children);
-            if (intersects.length > 0 && intersects[0].object.userData.name) {
-                document.getElementById('info').textContent = `Hovering over: ${intersects[0].object.userData.name}`;
-            } else {
-                document.getElementById('info').textContent = 'Hover over a planet for details.';
-            }
-        }
-
-        // Click or touch event to move spacecraft to the selected planet
-        function onPointerDown(event) {
-            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
-            raycaster.setFromCamera(mouse, camera);
-            const intersects = raycaster.intersectObjects(planetSpheres);
-
-            if (intersects.length > 0) {
-                const targetPlanet = intersects[0].object.position; // Get target planet position
-                targetPlanetPosition = targetPlanet.clone(); // Store target position
-            }
-        }
-
-        // Touch event for dragging the camera view
-        function onTouchStart(event) {
-            if (event.touches.length === 1) { // Only allow dragging with one finger
-                isDragging = true;
-                previousTouch.set(event.touches[0].clientX, event.touches[0].clientY); // Record starting touch position
-            }
-        }
-
-        function onTouchMove(event) {
-            if (isDragging && event.touches.length === 1) {
-                const currentTouch = new THREE.Vector2(event.touches[0].clientX, event.touches[0].clientY);
-                const deltaX = currentTouch.x - previousTouch.x; // Calculate change in X
-                const deltaY = currentTouch.y - previousTouch.y; // Calculate change in Y
-
-                // Update camera position based on touch movement
-                camera.position.x -= deltaX * 0.01; // Adjust camera X position
-                camera.position.y += deltaY * 0.01; // Adjust camera Y position
-
-                previousTouch.copy(currentTouch); // Update previous touch position
-            }
-        }
-
-        function onTouchEnd(event) {
-            isDragging = false; // Stop dragging when touch ends
-        }
-
-        // Event listeners for mouse and touch
-        window.addEventListener('mousemove', onPointerMove);
-        window.addEventListener('mousedown', onPointerDown);
-        window.addEventListener('touchmove', onPointerMove);
-        window.addEventListener('touchstart', onTouchStart);
-        window.addEventListener('touchmove', onTouchMove);
-        window.addEventListener('touchend', onTouchEnd);
-        window.addEventListener('mousedown', onPointerDown);
-
-        // Adjust camera and renderer on window resize
+        // Resize the renderer with the window
         window.addEventListener('resize', () => {
+            renderer.setSize(window.innerWidth, window.innerHeight);
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            labelRenderer.setSize(window.innerWidth, window.innerHeight);
         });
-
     </script>
 </body>
 </html>

@@ -1,0 +1,93 @@
+/* Basic reset and font styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #000; /* Dark space-like background */
+    color: #fff;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Header and Navigation */
+header {
+    background: linear-gradient(90deg, rgba(34, 34, 34, 1) 0%, rgba(17, 17, 17, 1) 100%);
+    padding: 20px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+header nav ul {
+    list-style-type: none;
+}
+
+header nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+header nav ul li a:hover {
+    color: #ff6347; /* Orange glow on hover */
+}
+
+/* Hero Section */
+#hero {
+    background: url('travel.gif') no-repeat center center/cover;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Sliding Section Effect */
+/* Sliding Section Effect */
+.sliding-section {
+    opacity: 0; /* Initially hidden */
+    transform: translateX(-100%); /* Slide from the left */
+    transition: opacity 0.5s ease-out, transform 0.8s ease-out;
+}
+
+.sliding-section.visible {
+    opacity: 1; /* Become visible */
+    transform: translateX(0); /* Slide into position */
+}
+
+/* Other sections */
+section {
+    padding: 60px;
+    text-align: center;
+    background-color: rgba(34, 34, 34, 0.9);
+    margin: 20px;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+}
+
+.video-container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* Footer Section */
+footer {
+    padding: 20px;
+    text-align: center;
+    background-color: #222;
+}
