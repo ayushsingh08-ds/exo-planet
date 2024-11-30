@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earth and Proxima b Simulation</title>
+    <style>
+        body { margin: 0; overflow: hidden; }
+        canvas { display: block; }
+        #distance {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 20px;
+            z-index: 100;
+        }
+        #instructions {
+            position: absolute;
+            top: 100px;
+            left: 15%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 18px;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.5); 
+            padding: 10px;
+            border-radius: 5px;
+        }
+        #reset-view {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            z-index: 100;
+            border-radius: 5px;
+        }
+        #planet-list {
+            position: absolute;
+            top: 100px;
+            right: 20px;
+            width: 150px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            font-size: 16px;
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 100;
+        }
+        #planet-list ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        #planet-list li {
+            cursor: pointer;
+            padding: 5px;
+            border-bottom: 1px solid white;
+        }
+        #planet-list li:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Distance display -->
+    <div id="distance">Distance: Calculating...</div>
+    <!-- Instructions for interaction -->
+    <div id="instructions">
+        <b>Instructions</b><br>
+        Use the mouse to look around.<br> Scroll to zoom in and out!<br>
+        Press the "Reset View" button to return to the default view.
+    </div>
+    <!-- Button to reset the view -->
+    <button id="reset-view">Reset View</button>
+    <!-- Planet list in the corner -->
+    <div id="planet-list">
+        <b>Select Planet/Star:</b>
+        <ul>
+            <li id="sun">Sun</li>
+            <li id="earth">Earth</li>
+            <li id="proxima-b">Proxima b</li>
+        </ul>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+
+    <script>
+        // Initialize the scene, camera, and renderer
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.1, 10000);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Add lighting
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 10);
+        directionalLight.position.set(0, 0, 2).normalize();
+        scene.add(directionalLight);
+
+        const pointLight = new THREE.PointLight(0xffff00, 1, 90);
+        pointLight.position.set(0, 0, 0);  // Light at the center (Sun)
+        scene.add(pointLight);
+
+        // Variables for Earth's orbit
+        let angle = 0;
+        const a = 200;
+        const b = 150;
+        const orbitalSpeed = 0.01;
+        let earthModel;
+
+        // Variables for Proxima b
+        let proximaAngle = 0;
+        const proximaA = 1300;  // Adjusted distance for better visibility
+        const proximaSpeed = 0.0001;
+        let proximaModel;
+
+        // Load Sun model
+        const loader = new THREE.GLTFLoader();
+        let sunModel;
+        loader.load('sun/scene.gltf', function (gltf) {
+            sunModel = gltf.scene;
+            sunModel.position.set(0, 0, 0);
+            sunModel.scale.set(7, 7, 7);
+            scene.add(sunModel);
+        }, undefined, function (error) {
+            console.error(error);
+        });
+
+        // Load Earth model
+        loader.load('earth/self made Earth.gltf', function (gltf) {
+            earthModel = gltf.scene;
+            earthModel.scale.set(20, 20, 20);
+            scene.add(earthModel);
+            animate();
+        }, undefined, function (error) {
+            console.error(error);
+        });
+
+        // Load Proxima b model
+        loader.load('Proxima_b_1_13776.gltf', function (gltf) {
+            proximaModel = gltf.scene;
+            proximaModel.scale.set(0.3, 0.3, 0.3);  // Increased scale for better visibility
+            proximaModel.position.set(proximaA, 0, 0);  // Place Proxima b further from the center
+            scene.add(proximaModel);
+        }, undefined, function (error) {
+            console.error(error);
+        });
+
+        // Create stars
+        const starGeometry = new THREE.BufferGeometry();
+        const starCount = 1000; // Number of stars
+        const positions = new Float32Array(starCount * 3);
+        const colors = new Float32Array(starCount * 3);
+        const sizes = new Float32Array(starCount);
+        for (let i = 0; i < starCount; i++) {
+            positions[i * 3] = (Math.random() - 0.5) * 4000; // Random x position
+            positions[i * 3 + 1] = (Math.random() - 0.5) * 4000; // Random y position
+            positions[i * 3 + 2] = (Math.random() - 0.5) * 4000; // Random z position
+
+            // Random color
+            colors[i * 3] = Math.random(); // r
+            colors[i * 3 + 1] = Math.random(); // g
+            colors[i * 3 + 2] = Math.random(); // b
+
+            sizes[i] = Math.random() * 2 + 1; // Random size between 1 and 3
+        }
+        starGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        starGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+        starGeometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+
+        // Create star material with constant opacity
+        const starMaterial = new THREE.PointsMaterial({
+            size: 1,
+            vertexColors: true,
+            sizeAttenuation: true,
+            transparent: true,
+            opacity: 0.8 // Set a constant opacity for stars
+        });
+
+        // Create stars
+        const stars = new THREE.Points(starGeometry, starMaterial);
+        scene.add(stars);
+
+        // Set initial camera position
+        const defaultCameraPosition = { x: 0, y: 0, z: 1000 };
+        camera.position.set(defaultCameraPosition.x, defaultCameraPosition.y, defaultCameraPosition.z);
+
+        // Orbit controls with limited zoom
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableZoom = true;
+        controls.enablePan = true;
+        controls.enableRotate = true;
+
+        // Limit the minimum and maximum distance for zoom
+        controls.minDistance = 100;  // Minimum zoom distance (for close view of planets)
+        controls.maxDistance = 1400; // Maximum zoom distance (to see the whole system)
+
+        controls.update();
+
+        // Reset camera view when button is clicked
+        document.getElementById('reset-view').addEventListener('click', function () {
+            camera.position.set(defaultCameraPosition.x, defaultCameraPosition.y, defaultCameraPosition.z);
+            controls.update();
+        });
+
+        // Function to smoothly move the camera to a specific target
+        function moveCameraToTarget(targetPosition) {
+            const duration = 1000;  // Duration in milliseconds
+            const startPosition = new THREE.Vector3().copy(camera.position);
+            const endPosition = new THREE.Vector3().copy(targetPosition);
+
+            const startTime = Date.now();
+
+            function update() {
+                const elapsedTime = Date.now() - startTime;
+                const t = Math.min(elapsedTime / duration, 1);  // Normalize time to range 0-1
+
+                camera.position.lerpVectors(startPosition, endPosition, t);
+                controls.update();
+
+                if (t < 1) {
+                    requestAnimationFrame(update);
+                }
+            }
+
+            update();
+        }
+
+        // Add event listeners to planet names
+        document.getElementById('sun').addEventListener('click', function () {
+            moveCameraToTarget(new THREE.Vector3(0, 0, 200)); // Adjusted camera distance
+        });
+
+        document.getElementById('earth').addEventListener('click', function () {
+            if (earthModel) {
+                moveCameraToTarget(earthModel.position.clone().add(new THREE.Vector3(0, 0, 50)));
+            }
+        });
+
+        document.getElementById('proxima-b').addEventListener('click', function () {
+            if (proximaModel) {
+                moveCameraToTarget(proximaModel.position.clone().add(new THREE.Vector3(0, 0, 150))); // Adjusted camera distance for better view
+            }
+        });
+
+        // Function to update the distance display
+        function updateDistance() {
+            if (earthModel && proximaModel) {
+                const earthSunDistance = 149.6; // million kilometers
+                const earthProximaDistance = 40_000; // million kilometers (approx. 4.24 light years)
+                document.getElementById('distance').innerHTML = `Earth-Sun: ${earthSunDistance} million km | Earth-Proxima b: ${earthProximaDistance} million km`;
+            }
+        }
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Rotate the sun
+            if (sunModel) {
+                sunModel.rotation.y += 0.01;
+            }
+
+            // Earth orbit
+            if (earthModel) {
+                angle += orbitalSpeed;
+                earthModel.position.x = a * Math.cos(angle);
+                earthModel.position.z = b * Math.sin(angle);
+                earthModel.rotation.y += 0.01;
+
+                updateDistance();
+            }
+
+            // Proxima b orbit
+            if (proximaModel) {
+                proximaAngle += proximaSpeed;
+                proximaModel.position.x = proximaA * Math.cos(proximaAngle);
+                proximaModel.position.z = proximaA * Math.sin(proximaAngle);
+                proximaModel.rotation.y += 0.001;
+            }
+
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+</html>

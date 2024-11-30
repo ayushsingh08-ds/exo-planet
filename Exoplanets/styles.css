@@ -1,0 +1,65 @@
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-image: url('your-background-image.jpg'); /* Replace with your main background image */
+    background-size: cover;
+    color: #000; /* Change text color to black */
+    text-align: center;
+}
+
+header {
+    background-color: rgba(255, 255, 255, 0.8); /* Lighter background for better contrast */
+    padding: 20px;
+}
+
+h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    color: #000; /* Ensure header text is black */
+}
+
+p {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #000; /* Ensure paragraph text is black */
+}
+
+main {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: auto; /* Change height to auto to fit content */
+    flex-wrap: wrap;
+    padding: 20px;
+}
+
+.box {
+    width: 300px;
+    height: 300px;
+    background: rgba(255, 255, 255, 0.9); /* Slightly more opaque background */
+    border-radius: 15px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    position: relative;
+    margin: 20px;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.box img {
+    width: 100%;
+    height: 70%;
+    border-radius: 15px 15px 0 0;
+}
+
+.box h2 {
+    margin: 10px 0;
+}
+
+.box:hover {
+    transform: scale(1.05);
+}
+
+footer {
+    background-color: rgba(255, 255, 255, 0.8); /* Lighter footer for contrast */
+    padding: 10px;
+}

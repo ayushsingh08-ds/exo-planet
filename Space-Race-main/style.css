@@ -1,0 +1,177 @@
+#container {
+  width: 500px;
+  height: 860px;
+  background-color: purple;
+  margin: 0 auto;
+  padding: 1em;
+  display: grid;
+  grid-gap: 1em;
+  position: relative;
+  grid-template-rows: .1fr .5fr .2fr;
+  grid-template-columns: .25fr .5fr .25fr;
+  grid-template-areas: ". title ."
+                          "game game game"
+                          ". . .";
+}
+
+main {
+    font-family: 'Orbitron'
+}
+
+canvas {
+    background-image: url(image.png);
+    height: 600px;
+    width: 500px;
+}
+
+body {
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    text-align: center;
+    background-image: url(https://openseauserdata.com/files/693677393caf5fb9275cbd111d805cb2.gif);
+    background-size: cover;
+    background-repeat: space;
+}
+  
+h1, h2 {
+    color: lime;
+}
+  
+#btm-left, #btm-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: purple;
+}
+
+main {
+    grid-area: game;
+}
+
+#title {
+    grid-area: title;
+}
+
+#highscoretext {
+    position: absolute;
+    left: 30px;
+    top: 700px;
+}
+
+#game-over {
+    font-size: 140px;
+    width: 94%;
+    color: lime;
+    position: absolute;
+    top: 112px;
+    left: 15px;
+}
+#game-over-button {
+    font-size: 70px;
+    width: 94%;
+    color: purple;
+    position: absolute;
+    top: 610px;
+    left: 15px;
+}
+#game-over-button:hover {
+    color: lime;
+    cursor: pointer;
+}
+#scoretext {
+    font-size: 70px;
+    width: 94%;
+    color: lime;
+    position: absolute;
+    top: 386px;
+    left: 15px;
+}
+#score {
+    font-size: 70px;
+    width: 94%;
+    color: lime;
+    position: absolute;
+    top: 460px;
+    left: 15px;
+}
+#highscore {
+    position: absolute;
+    left: 70px;
+    top: 740px;
+}
+
+li {
+    padding: 5px;
+    list-style-type: none;
+}
+
+.instructions1 {
+    color: lime;
+    font-size: 18px;
+    position: absolute;
+    left: 376px;
+    top: 766px;
+}
+.instructions2 {
+    color: lime;
+    font-size: 18px;
+    position: absolute;
+    left: 359px;
+    top: 796px;
+}
+.instructions3 {
+    color: lime;
+    font-size: 18px;
+    position: absolute;
+    left: 355px;
+    top: 826px;
+}
+.instructions4 {
+    color: lime;
+    font-size: 18px;
+    position: absolute;
+    left: 365px;
+    top: 856px;
+}
+
+#instructionstitle {
+    position: absolute;
+    left: 365px;
+    top: 700px;
+}
+#keys1 {
+    color: lime;
+    font-size: 18px;
+    position: absolute;
+    top: 800px;
+    left: 210px;
+}
+#keys2 {
+    color: lime;
+    font-size: 18px;
+    position: absolute;
+    top: 820px;
+    left: 210px;
+}
+#keys3 {
+    color: lime;
+    font-size: 18px;
+    position: absolute;
+    top: 840px;
+    left: 210px;
+}
+#keys4 {
+    color: lime;
+    font-size: 18px;
+    position: absolute;
+    top: 860px;
+    left: 210px;
+}
+#startbutton {
+    font-size: 40px;
+    color: rgb(37, 225, 231);
+}
+#startbutton:hover {
+    color: lime;
+    cursor: pointer;
+}

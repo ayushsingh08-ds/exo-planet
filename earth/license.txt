@@ -1,0 +1,11 @@
+Model Information:
+* title:	EARTH
+* source:	https://sketchfab.com/3d-models/earth-5ce4b1465c83432d9bb7e3c30232c02b
+* author:	Stéphane Agullo (https://sketchfab.com/sa3d)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "EARTH" (https://sketchfab.com/3d-models/earth-5ce4b1465c83432d9bb7e3c30232c02b) by Stéphane Agullo (https://sketchfab.com/sa3d) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

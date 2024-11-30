@@ -1,0 +1,8 @@
+Model Information:
+* title:	Low Poly Rocket For KA
+* source:	https://sketchfab.com/3d-models/low-poly-rocket-for-ka-464bab795d4045cc89d437d6cd17e711
+* author:	RandomLegoBrick (https://sketchfab.com/RandomLegoBrick)
+
+Model License:
+* license type:	SKETCHFAB Standard (https://sketchfab.com/licenses)
+* requirements:	Under basic restrictions, use worldwide, on all types of media, commercially or not, and in all types of derivative works

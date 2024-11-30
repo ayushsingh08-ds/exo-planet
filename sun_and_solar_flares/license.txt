@@ -1,0 +1,8 @@
+Model Information:
+* title:	Sun and solar flares
+* source:	https://sketchfab.com/3d-models/sun-and-solar-flares-39953f8a89f84d97905b79887e748536
+* author:	Chaitanya Krishnan (https://sketchfab.com/chaitanyak)
+
+Model License:
+* license type:	SKETCHFAB Standard (https://sketchfab.com/licenses)
+* requirements:	Under basic restrictions, use worldwide, on all types of media, commercially or not, and in all types of derivative works

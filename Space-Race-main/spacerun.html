@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Space Race</title>
+    <meta name="description" content="2D space game" />
+    <meta name="title" property="og:title" content="Space-Race" />
+    <meta property="og:type" content="Website" />
+    <meta name="image" property="og:image" content="https://live.staticflickr.com/65535/50926567586_b4742d7df7_o.png" />
+    <meta name="description" property="og:description" content="2D space game" />
+    <meta name="author" content="Jaxon Narramore" />
+</head>
+
+<body>
+    <!-- add in this audio when you reset canvas witout resetting page -->
+    <audio autoplay loop><source src="bensound-scifi.mp3" type="audio/mp3"></audio> 
+    <div id="container">
+        <h1 id="title">Space Race</h1>
+        <main>
+            <canvas id="game"></canvas>
+            <div id="game-over"></div>
+            <div id="game-over-button"></div>
+            <div id="startbutton">START</div>
+            <h2 id="scoretext"></h2>
+            <h2 id="score"></h2>
+            <h2 id="highscore"></h2>
+            <h2 id="highscoretext">Highscores</h2>
+            <h2 id="instructionstitle">How To Play</h2>
+            <div id="keys1">
+                W = UP
+            </div>
+            <div id="keys2">
+                S = DOWN
+            </div>
+            <div id="keys3">
+                A = LEFT
+            </div>
+            <div id="keys4">
+                D = RIGHT
+            </div>
+            <div class="instructions1">
+                Use the keys to
+            </div>
+            <div class="instructions2">
+                move the rocket and
+            </div>
+            <div class="instructions3">
+                avoid the astroids, the
+            </div>
+            <div class="instructions4">
+                highest score wins!
+            </div>
+        </main>
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>

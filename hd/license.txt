@@ -1,0 +1,8 @@
+Model Information:
+* title:	Jupiter Like Planet
+* source:	https://sketchfab.com/3d-models/jupiter-like-planet-196190a173bc4341ad992e8dfb1bb915
+* author:	21kiwi (https://sketchfab.com/21kiwi)
+
+Model License:
+* license type:	SKETCHFAB Standard (https://sketchfab.com/licenses)
+* requirements:	Under basic restrictions, use worldwide, on all types of media, commercially or not, and in all types of derivative works
