@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Responsive One Page Website</title>
+
+  
+  <link rel="stylesheet" href="style3.css" />
+</head>
+<body>
+  <nav>
+    <div class="logo">MySite</div>
+    <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+          <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <section id="home">
+    <h1>Welcome to My Site</h1>
+    <p>This is the Home section.</p>
+  </section>
+
+  <section id="about">
+    <h1>About Me</h1>
+    <p>This is the About section.</p>
+  </section>
+
+  <section id="projects">
+    <h1>Projects</h1>
+    <p>This is the Projects section.</p>
+  </section>
+
+  <section id="contact">
+    <h1>Contact</h1>
+    <p>This is the Contact section.</p>
+  </section>
+  <script>
+    // Smooth scroll
+    document.querySelectorAll('nav a').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+  
+    // Toggle hamburger menu
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+  
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      hamburger.classList.toggle('active');
+    });
+  
+    // Intersection Observer for animations and background color
+    const sections = document.querySelectorAll('section');
+    const body = document.body;
+  
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Apply the background color of the visible section to the body
+          const bgColor = getComputedStyle(entry.target).backgroundColor;
+          body.style.backgroundColor = bgColor;
+  
+          // Add active class for animations
+          entry.target.classList.add('active');
+        } else {
+          entry.target.classList.remove('active');
+        }
+      });
+    }, { threshold: 0.1 }); // Trigger when 10% of the section is visible
+  
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+  
+    // Set initial background color to match the first section
+    window.addEventListener('DOMContentLoaded', () => {
+      const initialBgColor = getComputedStyle(sections[0]).backgroundColor;
+      body.style.backgroundColor = initialBgColor;
+    });
+  </script>
+</body>
+</html>
